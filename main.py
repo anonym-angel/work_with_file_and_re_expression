@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 
 # -------------------------- Задание номер 1 --------------------------
 
-
 def read_file(open_file='list_of_tourists.txt', mode='r'):
     with open(open_file, mode) as f:
         read_f = f.read()
@@ -64,8 +63,7 @@ def get_habr():
 
 def get_find():
     print('Заголовки публикаций Михаила Кулеша имеют следующий вид:')
-    for div in get_habr():
-        print(div.text)
+    [print(div.text) for div in get_habr()]
 
 
 if __name__ == '__main__':
