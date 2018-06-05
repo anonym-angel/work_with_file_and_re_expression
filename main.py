@@ -3,6 +3,7 @@ import re
 import shutil
 from bs4 import BeautifulSoup
 
+
 # -------------------------- Задание номер 1 --------------------------
 
 
@@ -25,17 +26,17 @@ def regular_expression():
 def cycle_parsing():
     count = 1
     while count <= 3:
-        print('Страница номер {}'.format(count))
+        print('\nСтраница номер {}'.format(count))
 
-        def get_html():
+        def get_baskino():
             url = 'http://baskino.me/new/page/' + str(count)
             page = requests.get(url).text
             soup = BeautifulSoup(page, "html.parser")
-            divs = soup.find_all('div',  {'class': 'shortpost'})
+            divs = soup.find_all('div', {'class': 'shortpost'})
             return divs
 
         def find_content():
-            for div in get_html():
+            for div in get_baskino():
                 div_title = div.find('div', {'class': 'posttitle'})
                 link_text = div_title.find('a').text
                 print(link_text)
@@ -51,9 +52,28 @@ def cycle_parsing():
         count += 1
 
 
+# -------------------------- Задание номер 3 --------------------------
+
+def get_habr():
+    url = 'https://habr.com/users/mkulesh/posts/'
+    page = requests.get(url).text
+    soup = BeautifulSoup(page, "html.parser")
+    heading = soup.find_all('a', {'class': 'post__title_link'})
+    return heading
+
+
+def get_find():
+    print('Заголовки публикаций Михаила Кулеша имеют следующий вид:')
+    for div in get_habr():
+        print(div.text)
+
+
 if __name__ == '__main__':
     print('Первое задание выполнено:')
     regular_expression()
 
     print('\nВторое задание выполнено:')
     cycle_parsing()
+
+    print('\nТретье задание выполнено:')
+    get_find()
